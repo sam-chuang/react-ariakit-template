@@ -2,6 +2,7 @@ import { useState } from "react"
 import { css } from "@emotion/react"
 import { Routes, Route, Outlet, Link } from "react-router-dom"
 import { Button } from "@ariakit/react"
+import { Box } from "./box/Box"
 //TODO: icon
 // import reactLogo from "./assets/react.svg"
 import "./App.css"
@@ -41,7 +42,12 @@ const Layout = ({}) => {
 }
 
 const Home = () => {
-  return "I'm Home!"
+  return (
+    <Box alignX="center">
+      <Button>1</Button>
+      <Button>1</Button>
+    </Box>
+  )
 }
 
 const PageNotFound = () => {
