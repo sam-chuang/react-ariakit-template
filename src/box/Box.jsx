@@ -36,32 +36,64 @@ const VerticalAlign = {
   bottom: "flex-end"
 }
 
+const flexDiection = (orientation) => {
+  switch (orientation) {
+    case Horizontal:
+      return "row"
+    default:
+      return "column"
+  }
+}
+
+const propertyOfAlignX = (orientation) => {
+  switch (orientation) {
+    case Horizontal:
+      return "justify-content"
+    default:
+      return "align-items"
+  }
+}
+
+const propertyOfAlignY = (orientation) => {
+  switch (orientation) {
+    case Horizontal:
+      return "align-items"
+    default:
+      return "justify-content"
+  }
+}
+
+//TODO: support spacing for children
 export const Box = forwardRef(
-  ({ orientation = Vertical, alignX, alignY, children, ...props }, ref) => {
+  ({ orientation, alignX, alignY, spacing, children, ...props }, ref) => {
+    let isAlign = alignX || alignY
+    let direction = isAlign && flexDiection(orientation)
+
     return (
       <div
         ref={ref}
         css={css`
-          ${(alignX || alignY) &&
+          ${isAlign &&
           css`
             display: flex;
           `}
 
-          ${orientation === Vertical &&
+          ${direction &&
           css`
-            flex-direction: column;
+            flex-direction: ${direction};
+          `}
+
+          ${alignX &&
+          css`
+            ${propertyOfAlignX(orientation)}: ${HorizontalAlign[alignX]};
           `}
 
           ${alignY &&
           css`
-            justify-content: ${VerticalAlign[alignY]};
-          `}
-
-        ${alignX &&
-          css`
-            align-items: ${HorizontalAlign[alignX]};
+            ${propertyOfAlignY(orientation)}: ${VerticalAlign[alignY]};
           `}
         `}
+        {...props}
       >
         {children}
       </div>

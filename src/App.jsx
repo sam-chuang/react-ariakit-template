@@ -43,7 +43,15 @@ const Layout = ({}) => {
 
 const Home = () => {
   return (
-    <Box alignX="center">
+    <Box
+      alignX="center"
+      alignY="center"
+      css={css`
+        width: 40vw;
+        height: 40vh;
+        background: pink;
+      `}
+    >
       <Button>1</Button>
       <Button>1</Button>
     </Box>
