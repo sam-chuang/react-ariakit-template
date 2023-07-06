@@ -63,11 +63,12 @@ const propertyOfAlignY = (orientation) => {
   }
 }
 
-//TODO: support spacing for children
+//TODO: support spacing for children, flexbox gap? or css child margin?
+//TODO: verticalBelow?
 export const Box = forwardRef(
   ({ orientation, alignX, alignY, spacing, children, ...props }, ref) => {
     let isAlign = alignX || alignY
-    let direction = isAlign && flexDiection(orientation)
+    let direction = flexDiection(orientation)
 
     return (
       <div
@@ -78,7 +79,7 @@ export const Box = forwardRef(
             display: flex;
           `}
 
-          ${direction &&
+          ${isAlign &&
           css`
             flex-direction: ${direction};
           `}
