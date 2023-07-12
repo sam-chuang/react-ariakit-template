@@ -2,7 +2,7 @@ import { useState } from "react"
 import { css } from "@emotion/react"
 import { Routes, Route, Outlet, Link } from "react-router-dom"
 import { Button } from "@ariakit/react"
-import { Box } from "./box/Box"
+import Box from "./box"
 //TODO: icon
 // import reactLogo from "./assets/react.svg"
 import "./App.css"
@@ -43,18 +43,32 @@ const Layout = ({}) => {
 
 const Home = () => {
   return (
-    <Box
-      alignX="center"
-      alignY="center"
-      css={css`
-        width: 40vw;
-        height: 40vh;
-        background: pink;
-      `}
-    >
-      <Button>1</Button>
-      <Button>1</Button>
-    </Box>
+    <>
+      <Box
+        orientation="horizontal"
+        spacing="1rem"
+        alignX="center"
+        alignY="center"
+        css={css`
+          width: 40vw;
+          height: 40vh;
+          background: pink;
+        `}
+      >
+        <Button>1</Button>
+        <Button>2</Button>
+      </Box>
+      Box.Horizontal
+      <Box.Horizontal>
+        <Button>1</Button>
+        <Button>2</Button>
+      </Box.Horizontal>
+      Box.Vertical
+      <Box.Vertical>
+        <Button>1</Button>
+        <Button>2</Button>
+      </Box.Vertical>
+    </>
   )
 }
 

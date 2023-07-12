@@ -1,11 +1,9 @@
 import { forwardRef } from "react"
 import { css } from "@emotion/react"
 
-const Horizontal = "horizontal"
-const Vertical = "vertical"
 export const Orientation = {
-  Horizontal,
-  Vertical
+  Horizontal: "horizontal",
+  Vertical: "vertical"
 }
 
 const Left = "left"
@@ -38,7 +36,7 @@ const VerticalAlign = {
 
 const flexDiection = (orientation) => {
   switch (orientation) {
-    case Horizontal:
+    case Orientation.Horizontal:
       return "row"
     default:
       return "column"
@@ -47,7 +45,7 @@ const flexDiection = (orientation) => {
 
 const propertyOfAlignX = (orientation) => {
   switch (orientation) {
-    case Horizontal:
+    case Orientation.Horizontal:
       return "justify-content"
     default:
       return "align-items"
@@ -56,33 +54,27 @@ const propertyOfAlignX = (orientation) => {
 
 const propertyOfAlignY = (orientation) => {
   switch (orientation) {
-    case Horizontal:
+    case Orientation.Horizontal:
       return "align-items"
     default:
       return "justify-content"
   }
 }
 
-//TODO: support spacing for children, flexbox gap? or css child margin?
+const gap = (value) => (Number.isFinite(value) ? `${value}px` : value)
+
 //TODO: verticalBelow?
 export const Box = forwardRef(
-  ({ orientation, alignX, alignY, spacing, children, ...props }, ref) => {
-    let isAlign = alignX || alignY
-    let direction = flexDiection(orientation)
-
+  (
+    { orientation = Vertical, alignX, alignY, spacing, children, ...props },
+    ref
+  ) => {
     return (
       <div
         ref={ref}
         css={css`
-          ${isAlign &&
-          css`
-            display: flex;
-          `}
-
-          ${isAlign &&
-          css`
-            flex-direction: ${direction};
-          `}
+          display: flex;
+          flex-direction: ${flexDiection(orientation)};
 
           ${alignX &&
           css`
@@ -93,6 +85,11 @@ export const Box = forwardRef(
           css`
             ${propertyOfAlignY(orientation)}: ${VerticalAlign[alignY]};
           `}
+
+          ${(Number.isFinite(spacing) || spacing) &&
+          css`
+            gap: ${gap(spacing)};
+          `}
         `}
         {...props}
       >
@@ -101,3 +98,13 @@ export const Box = forwardRef(
     )
   }
 )
+
+export const Horizontal = (props) => (
+  <Box orientation={Orientation.Horizontal} {...props} />
+)
+
+export const Vertical = (props) => (
+  <Box orientation={Orientation.Vertical} {...props} />
+)
+
+export default Box
