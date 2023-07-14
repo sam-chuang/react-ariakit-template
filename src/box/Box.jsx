@@ -20,7 +20,8 @@ export const AlignX = {
 const HorizontalAlign = {
   left: "flex-start",
   center: "center",
-  right: "flex-end"
+  right: "flex-end",
+  apart: "space-between"
 }
 
 export const AlignY = {
@@ -63,10 +64,18 @@ const propertyOfAlignY = (orientation) => {
 
 const gap = (value) => (Number.isFinite(value) ? `${value}px` : value)
 
-//TODO: verticalBelow?
+//TODO: verticalBelow? breakpoints
 export const Box = forwardRef(
   (
-    { orientation = Vertical, alignX, alignY, spacing, children, ...props },
+    {
+      orientation = Vertical,
+      alignX,
+      alignY,
+      spacing,
+      isFilled,
+      children,
+      ...props
+    },
     ref
   ) => {
     return (
@@ -75,6 +84,11 @@ export const Box = forwardRef(
         css={css`
           display: flex;
           flex-direction: ${flexDiection(orientation)};
+
+          ${!isFilled &&
+          css`
+            align-items: flex-start;
+          `}
 
           ${alignX &&
           css`

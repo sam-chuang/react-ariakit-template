@@ -59,12 +59,24 @@ const Home = () => {
         <Button>2</Button>
       </Box>
       Box.Horizontal
-      <Box.Horizontal>
+      <Box.Horizontal
+        css={css`
+          width: 40vw;
+          height: 40vh;
+          background: pink;
+        `}
+      >
         <Button>1</Button>
         <Button>2</Button>
       </Box.Horizontal>
       Box.Vertical
-      <Box.Vertical>
+      <Box.Vertical
+        css={css`
+          width: 40vw;
+          height: 40vh;
+          background: pink;
+        `}
+      >
         <Button>1</Button>
         <Button>2</Button>
       </Box.Vertical>
