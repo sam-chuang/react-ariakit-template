@@ -2,7 +2,8 @@ import { useState } from "react"
 import { css } from "@emotion/react"
 import { Routes, Route, Outlet, Link } from "react-router-dom"
 import { Button } from "@ariakit/react"
-import Box from "./box"
+import { Header } from "./app/Header"
+import Box, { Orientation } from "./box"
 //TODO: icon
 // import reactLogo from "./assets/react.svg"
 import "./App.css"
@@ -24,19 +25,10 @@ function App() {
 const Layout = ({}) => {
   return (
     <>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/nothing-here">Nothing Here</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <Outlet />
+      <Box Orientation={Orientation.Vertical} isFilled>
+        <Header />
+        <Outlet />
+      </Box>
     </>
   )
 }
